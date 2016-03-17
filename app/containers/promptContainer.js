@@ -2,17 +2,50 @@ var React = require('react');
 var trasparentBg =  require('../styles').transparentBg;
 
 var PromtContainer = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
+    getInitialState: function () {
+        return {
+            username: ""
+        }
+    },
+    onUpdateUser: function (e) {
+        this.setState({
+            username: e.target.value
+        })
+    },
+    onSubmituser: function (e) {
+        e.preventDefault();
+        var username = this.state.username;
+        this.setState({
+            username: ""
+        });
+        if (this.props.routeParams.playerOne) {
+            this.context.router.push({
+                pathname: "/battle",
+                query: {
+                    playerOne: this.props.routeParams.plaerOne,
+                    playerTwo: this.state.username
+                }
+            })
+        } else {
+            this.context.router.push("/playerTwo/" + this.state.username)
+
+        }
+    },
     render: function () {
-        console.log(this);
         return(
             <div className="jumbotron col-sm-6 col-sm-offset-3 text-center" style={trasparentBg}>
                 <h1>{this.props.route.header}</h1>
                 <div className="col-sm-12">
-                    <form>
+                    <form onSubmit={this.onSubmituser}>
                         <div className="form-group">
                             <input
                                 className="form-control"
                                 placeholder="Github Username"
+                                onChange={this.onUpdateUser}
+                                value={this.state.username}
                                 type="text" />
                         </div>
                         <div className="form-group col-sm-4 col-sm-offset-4">
