@@ -1,5 +1,5 @@
 var React = require('react');
-var Prompt = require("../components/Prompt");
+var Prompt = require("../components/prompt");
 
 var PromtContainer = React.createClass({
     contextTypes: {
@@ -25,7 +25,7 @@ var PromtContainer = React.createClass({
             this.context.router.push({
                 pathname: "/battle",
                 query: {
-                    playerOne: this.props.routeParams.plaerOne,
+                    playerOne: this.props.routeParams.playerOne,
                     playerTwo: this.state.username
                 }
             })
@@ -37,8 +37,8 @@ var PromtContainer = React.createClass({
     render: function () {
         return(
             <Prompt
-                onSubmituser={this.props.handleSubmitUser}
-                onUpdateUser={this.props.handleUpdateUser}
+                onSubmituser={this.handleSubmitUser}
+                onUpdateUser={this.handleUpdateUser}
                 header={this.props.route.header}
                 username={this.state.username}
                 />
