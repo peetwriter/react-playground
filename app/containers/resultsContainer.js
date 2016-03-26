@@ -13,14 +13,13 @@ var ResultsContainer = React.createClass({
         })
     },
     componentDidMount: function() {
-        // this.props.location.state.playersInfo
         githubHelpers.battle(this.props.location.state.playersInfo)
             .then(function(scores){
                 this.setState({
                     scores: scores,
                     isLoading: false
                 })
-            });
+            }.bind(this));
     },
     render: function (){
         return (
