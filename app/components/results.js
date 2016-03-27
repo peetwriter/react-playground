@@ -1,15 +1,42 @@
 var React = require("react");
 var PropTypes = React.PropTypes;
-var transparentBg =  require('../styles').transparentBg;
+var styles =  require('../styles').transparentBg;
+var Link = require("react-router").Link;
 
-var UserDetails = require("./userDetails")
-var UserDetailsWrapper = require("./userDetailsWrapper")
+var UserDetails = require("./userDetails");
+var UserDetailsWrapper = require("./userDetailsWrapper");
+var MainContainer = require("./mainContainer");
+
+function StartOver () {
+    return (
+        <div className="col-sm-12" style={styles.space}>
+            <Link to="/playerOne">
+                <button type="button" className="btn btn-lg btn-danger">Start Over</button>
+            </Link>
+        </div>
+    )
+}
 
 function Results (props) {
+    if (props.isLoading) {
+        return (
+            <p>Loading </p>
+        )
+    }
+
+    if (props.scores[0] === props.scores[1]) {
+        return (
+            <MainContainer>
+                <h1>Its a tie! </h1>
+                <StartOver/>
+            </MainContainer>
+        )
+    }
+
     var winningIndex = props.scores[0] > props.scores[1] ? 0 : 1;
     var losingIndex = winningIndex === 1 ? 0 : 1;
     return (
-        <div className="jumbotrone col-sm-12 text-center" style={transparentBg}>
+        <MainContainer>
             <h1>
                 Results
             </h1>
@@ -20,8 +47,9 @@ function Results (props) {
                 <UserDetailsWrapper header="Looser">
                     <UserDetails score={props.scores[losingIndex]} info={props.playersInfo[losingIndex]}></UserDetails>
                 </UserDetailsWrapper>
+                <StartOver/>
             </div>
-        </div>
+        </MainContainer>
     )
 }
 
