@@ -7,6 +7,8 @@ var UserDetails = require("./userDetails");
 var UserDetailsWrapper = require("./userDetailsWrapper");
 var MainContainer = require("./mainContainer");
 
+var Loading = require("./Loading");
+
 function StartOver () {
     return (
         <div className="col-sm-12" style={styles.space}>
@@ -20,7 +22,7 @@ function StartOver () {
 function Results (props) {
     if (props.isLoading) {
         return (
-            <p>Loading </p>
+            <Loading speed={800} text="Waiting"/>
         )
     }
 
