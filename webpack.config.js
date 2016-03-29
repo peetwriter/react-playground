@@ -1,3 +1,4 @@
+require('es6-promise').polyfill();
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var HtmlWebpackPluginConfig = new  HtmlWebpackPlugin({
     template: __dirname + '/app/index.html',
@@ -15,7 +16,8 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
+            {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"},
+            {test: /\.css$/, loader: "style-loader!css-loader"}
         ]
     },
     plugins: [HtmlWebpackPluginConfig]
